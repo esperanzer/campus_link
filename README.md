@@ -1,5 +1,5 @@
 # campus_link
-CampusLink — A university management system built with Laravel, PHP, MySQL, and Tailwind CSS. It provides a clean dashboard for managing students, courses, and lecturers with full CRUD functionality and responsive design.
+CampusLink — CampusLink is a Laravel-based university management system that streamlines student, course, and lecturer management. Built with Laravel, PHP, MySQL, and Tailwind CSS, it features a responsive admin dashboard, secure user authentication, profile image uploads, and dynamic course assignment.
 
 
 
