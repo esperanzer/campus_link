@@ -8,6 +8,7 @@
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <!-- Students Card -->
+
         <div class="bg-white rounded-lg shadow p-5 flex flex-col justify-between">
             <div>
                 <h2 class="text-xl font-semibold text-gray-700">Students</h2>

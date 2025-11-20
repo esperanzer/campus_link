@@ -30,6 +30,7 @@
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reg. No</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Course</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Year</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Photo</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                     </tr>
                 </thead>
@@ -42,6 +43,18 @@
                             <td class="px-6 py-4 whitespace-nowrap">{{ $student->registration_number }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ $student->course }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ $student->year }}</td>
+                            
+                            <!-- Photo column -->
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                @if($student->photo)
+                                    <img src="{{ asset('storage/' . $student->photo) }}" alt="Photo" class="w-16 h-16 rounded">
+                                    
+                                @else
+                                    <span class="text-gray-500">No photo</span>
+                                @endif
+                            </td>
+
+                            <!-- Actions -->
                             <td class="px-6 py-4 whitespace-nowrap flex gap-2">
                                 <a href="{{ route('students.edit', $student->id) }}" class="bg-yellow-400 text-white px-3 py-1 rounded shadow hover:bg-yellow-500 transition duration-200">Edit</a>
                                 <form action="{{ route('students.destroy', $student->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
@@ -53,7 +66,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="px-6 py-4 text-center text-gray-500">No students found.</td>
+                            <td colspan="8" class="px-6 py-4 text-center text-gray-500">No students found.</td>
                         </tr>
                     @endforelse
                 </tbody>

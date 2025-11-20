@@ -12,11 +12,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-
-        $students = Student::all(); // create student variable to Fetch all students from db
-
-        // Pass the $students variable to the view
-        return view('students.index', compact('students')); // Pass to view
+        $students = Student::all(); // Fetch all students
+        return view('students.index', compact('students'));
     }
 
     /**
@@ -32,7 +29,8 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        // Validate input and store in $validated
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:students,email',
             'registration_number' => 'required|unique:students,registration_number',
@@ -40,9 +38,18 @@ class StudentController extends Controller
             'year' => 'required|string',
             'contact_number' => 'required|string',
             'address' => 'required|string',
+            'gender' => 'required|string',
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        Student::create($request->all());
+        // Handle file upload
+        if ($request->hasFile('photo')) {
+            $photoPath = $request->file('photo')->store('photos', 'public');
+            $validated['photo'] = $photoPath; // Add to validated data
+        }
+
+        //Create student with validated data
+        Student::create($validated);
 
         return redirect()->route('students.index')
             ->with('success', 'Student added successfully!');

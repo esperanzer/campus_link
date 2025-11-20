@@ -17,7 +17,7 @@
         </div>
     @endif
 
-    <form action="{{ route('students.store') }}" method="POST" class="space-y-4">
+    <form action="{{ route('students.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
         @csrf
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -26,6 +26,16 @@
                 <input type="text" name="name" value="{{ old('name') }}"
                        class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-400">
             </div>
+            <div>
+    <label class="block text-gray-700 font-medium mb-1">Gender</label>
+    <select name="gender" 
+            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-400">
+        <option value="">- -Select Gender - -</option>
+        <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }}>Male</option>
+        <option value="Female" {{ old('gender') == 'Female' ? 'selected' : '' }}>Female</option>
+        <option value="Other" {{ old('gender') == 'Other' ? 'selected' : '' }}>Other</option>
+    </select>
+</div>
             <div>
                 <label class="block text-gray-700 font-medium mb-1">Email</label>
                 <input type="email" name="email" value="{{ old('email') }}"
@@ -57,6 +67,12 @@
                 <input type="text" name="contact_number" value="{{ old('contact_number') }}"
                        class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-400">
             </div>
+            <div>
+    <label class="block text-gray-700 font-medium mb-1">Photo</label>
+    <input type="file" name="photo"
+           class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-400">
+</div>
+
         </div>
 
         <div>

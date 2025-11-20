@@ -10,6 +10,7 @@ class Student extends Model
         'name',
         'gender',
         'course',
+        'email',
         'registration_number',
         'year',
         'contact_number',
