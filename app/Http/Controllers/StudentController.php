@@ -60,7 +60,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        //
+        return view('students.show', compact('student'));
     }
 
     /**
@@ -68,7 +68,7 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+        return view('students.edit', compact('student'));
     }
 
     /**
@@ -76,8 +76,34 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        //
+        // 1️⃣ Validate the request
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'registration_number' => 'required|string|max:50',
+            'course' => 'required|string|max:100',
+            'year' => 'required|integer|min:1|max:10',
+            'photo' => 'nullable|image|max:2048', // optional photo
+        ]);
+
+        // 2️⃣ Handle photo upload if there is a new photo
+        if ($request->hasFile('photo')) {
+            // Delete old photo if exists
+            if ($student->photo && file_exists(storage_path('app/public/' . $student->photo))) {
+                unlink(storage_path('app/public/' . $student->photo));
+            }
+
+            $path = $request->file('photo')->store('photos', 'public');
+            $validated['photo'] = $path;
+        }
+
+        // 3️⃣ Update student
+        $student->update($validated);
+
+        // 4️⃣ Redirect back to index or show page
+        return redirect()->route('students.index')->with('success', 'Student updated successfully!');
     }
+
 
     /**
      * Remove the specified resource from storage.

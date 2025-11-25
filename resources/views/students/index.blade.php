@@ -56,7 +56,13 @@
 
                             <!-- Actions -->
                             <td class="px-6 py-4 whitespace-nowrap flex gap-2">
+
+                                 {{-- edit student button --}}
                                 <a href="{{ route('students.edit', $student->id) }}" class="bg-yellow-400 text-white px-3 py-1 rounded shadow hover:bg-yellow-500 transition duration-200">Edit</a>
+                                    {{-- view student button --}}
+                                    <a href="{{ route('students.show', $student->id) }}" class="bg-blue-500 text-white px-3 py-1 rounded shadow hover:bg-blue-600 transition duration-200">View</a>
+                                    
+
                                 <form action="{{ route('students.destroy', $student->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
                                     @csrf
                                     @method('DELETE')
